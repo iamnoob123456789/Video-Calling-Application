@@ -9,6 +9,7 @@ function App() {
   return (
     <>
       <div>
+        <h1 class="test-3xl font-bold underline">This is the Tailwind css magic!!!</h1>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
