@@ -7,7 +7,19 @@ import ChatPage from "./pages/ChatPage";
 import CallPage from "./pages/CallPage";
 import Notifications from "./pages/Notifications";
 import { Toaster } from "react-hot-toast";
+import {useQuery} from "@tanstack/react-query";
 const App=()=>{
+   const {data,isLoading,error,}=useQuery({
+    queryKey:["user"],
+    queryFn:async()=>{
+        const res=await fetch("http://localhost:8000/api/auth/me",{
+            headers:{
+                "Authorization":`Bearer ${localStorage.getItem("token")}`,
+            },
+        });
+        return res.json();
+    },
+   });
    return(
      <div className="h-screen" data-theme="night">
         <Routes>
