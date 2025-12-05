@@ -11,10 +11,14 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.7",
+    "lucide-react": "^0.555.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hot-toast": "^2.6.0",
-    "react-router": "^7.9.5"
+    "react-router": "^7.9.5",
+    "stream-chat": "^9.26.0",
+    "stream-chat-react": "^13.13.0",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
