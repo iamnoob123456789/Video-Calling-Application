@@ -1,4 +1,32 @@
-import User from "../models/User";
+import User from "../models/User.js";
+import FriendRequest from "../models/FriendRequest.js";
+export async function sendFriendRequest(req, res) {
+    try {
+        const { id: recipientId } = req.params;
+        const senderId = req.user._id;
+
+        const existingRequest = await FriendRequest.findOne({
+            sender: senderId,
+            recipient: recipientId,
+        });
+
+        if (existingRequest) {
+            return res.status(400).json({ message: "Friend request already sent" });
+        }
+
+        const newFriendRequest = new FriendRequest({
+            sender: senderId,
+            recipient: recipientId,
+        });
+
+        await newFriendRequest.save();
+        res.status(201).json({ message: "Friend request sent successfully" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
 export async function getRecommendedUsers(req,res){
     try{
         const currentUserId=req.user._id;
@@ -31,10 +59,6 @@ export async function getMyFriends(req,res){
         res.status(500).json({message:"Internal Server Error"});
     }
 }
-
-
-
-
 export async function acceptFriendRequest(req,res){
     try{
         const {id:requestId}=req.params;
