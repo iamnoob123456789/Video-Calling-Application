@@ -1,8 +1,12 @@
 import express from "express";
-import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import path from "path";
+import dotenv from "dotenv";
+
+// Load environment variables
+const __dirname = path.resolve();
+dotenv.config({ path: path.join(__dirname, ".env") });
 
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
@@ -12,8 +16,11 @@ import { connectDB } from "./lib/db.js";
 
 const app = express();
 const PORT = process.env.PORT;
-
-const __dirname = path.resolve();
+console.log(process.env.MONGO_URL);
+if (!process.env.MONGO_URL) {
+  console.error("FATAL ERROR: MONGO_URL is not defined.");
+  process.exit(1);
+}
 
 app.use(
   cors({
